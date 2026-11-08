@@ -1,20 +1,24 @@
 import { PrismaClient } from '@prisma/client';
+
 const prisma = new PrismaClient();
 
 async function main() {
+  await prisma.book.deleteMany();
+  await prisma.genre.deleteMany();
+
   const fantasy = await prisma.genre.create({ data: { name: 'Fantasy' } });
-  const scifi   = await prisma.genre.create({ data: { name: 'Science Fiction' } });
+  const scifi = await prisma.genre.create({ data: { name: 'Science Fiction' } });
   const mystery = await prisma.genre.create({ data: { name: 'Mystery' } });
   const history = await prisma.genre.create({ data: { name: 'History' } });
 
   await prisma.book.createMany({
     data: [
       { title: 'The Hobbit', author: 'J.R.R. Tolkien', genreId: fantasy.id },
-      { title: 'Harry Potter and the Sorcerer\'s Stone', author: 'J.K. Rowling', genreId: fantasy.id },
+      { title: "Harry Potter and the Sorcerer's Stone", author: 'J.K. Rowling', genreId: fantasy.id },
       { title: 'A Wizard of Earthsea', author: 'Ursula K. Le Guin', genreId: fantasy.id },
       { title: 'The Name of the Wind', author: 'Patrick Rothfuss', genreId: fantasy.id },
       { title: 'Dune', author: 'Frank Herbert', genreId: scifi.id },
-      { title: 'Ender\'s Game', author: 'Orson Scott Card', genreId: scifi.id },
+      { title: "Ender's Game", author: 'Orson Scott Card', genreId: scifi.id },
       { title: 'The Martian', author: 'Andy Weir', genreId: scifi.id },
       { title: 'Neuromancer', author: 'William Gibson', genreId: scifi.id },
       { title: 'And Then There Were None', author: 'Agatha Christie', genreId: mystery.id },
@@ -29,4 +33,11 @@ async function main() {
   });
 }
 
-main().finally(() => prisma.$disconnect());
+main()
+  .catch((error) => {
+    console.error('Seed failed:', error);
+    process.exit(1);
+  })
+  .finally(async () => {
+    await prisma.$disconnect();
+  });
