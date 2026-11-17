@@ -3,6 +3,7 @@ import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
 
 async function main() {
+  await prisma.review.deleteMany();
   await prisma.book.deleteMany();
   await prisma.genre.deleteMany();
 
@@ -13,23 +14,23 @@ async function main() {
 
   await prisma.book.createMany({
     data: [
-      { title: 'The Hobbit', author: 'J.R.R. Tolkien', genreId: fantasy.id },
-      { title: "Harry Potter and the Sorcerer's Stone", author: 'J.K. Rowling', genreId: fantasy.id },
-      { title: 'A Wizard of Earthsea', author: 'Ursula K. Le Guin', genreId: fantasy.id },
-      { title: 'The Name of the Wind', author: 'Patrick Rothfuss', genreId: fantasy.id },
-      { title: 'Dune', author: 'Frank Herbert', genreId: scifi.id },
-      { title: "Ender's Game", author: 'Orson Scott Card', genreId: scifi.id },
-      { title: 'The Martian', author: 'Andy Weir', genreId: scifi.id },
-      { title: 'Neuromancer', author: 'William Gibson', genreId: scifi.id },
-      { title: 'And Then There Were None', author: 'Agatha Christie', genreId: mystery.id },
-      { title: 'The Hound of the Baskervilles', author: 'Arthur Conan Doyle', genreId: mystery.id },
-      { title: 'Gone Girl', author: 'Gillian Flynn', genreId: mystery.id },
-      { title: 'The Girl with the Dragon Tattoo', author: 'Stieg Larsson', genreId: mystery.id },
-      { title: 'Sapiens', author: 'Yuval Noah Harari', genreId: history.id },
-      { title: 'Guns, Germs, and Steel', author: 'Jared Diamond', genreId: history.id },
-      { title: 'The Silk Roads', author: 'Peter Frankopan', genreId: history.id },
-      { title: 'SPQR', author: 'Mary Beard', genreId: history.id },
-    ],
+      { title: 'The Hobbit', author: 'J.R.R. Tolkien', isbn: '9780000000001', totalCopies: 3, genreId: fantasy.id },
+      { title: 'Harry Potter and the Sorcerer\'s Stone', author: 'J.K. Rowling', isbn: '9780000000002', totalCopies: 4, genreId: fantasy.id },
+      { title: 'A Wizard of Earthsea', author: 'Ursula K. Le Guin', isbn: '9780000000003', totalCopies: 2, genreId: fantasy.id },
+      { title: 'The Name of the Wind', author: 'Patrick Rothfuss', isbn: '9780000000004', totalCopies: 3, genreId: fantasy.id },
+      { title: 'Dune', author: 'Frank Herbert', isbn: '9780000000005', totalCopies: 2, genreId: scifi.id },
+      { title: "Ender's Game", author: 'Orson Scott Card', isbn: '9780000000006', totalCopies: 3, genreId: scifi.id },
+      { title: 'The Martian', author: 'Andy Weir', isbn: '9780000000007', totalCopies: 2, genreId: scifi.id },
+      { title: 'Neuromancer', author: 'William Gibson', isbn: '9780000000008', totalCopies: 2, genreId: scifi.id },
+      { title: 'And Then There Were None', author: 'Agatha Christie', isbn: '9780000000009', totalCopies: 3, genreId: mystery.id },
+      { title: 'The Hound of the Baskervilles', author: 'Arthur Conan Doyle', isbn: '9780000000010', totalCopies: 2, genreId: mystery.id },
+      { title: 'Gone Girl', author: 'Gillian Flynn', isbn: '9780000000011', totalCopies: 2, genreId: mystery.id },
+      { title: 'The Girl with the Dragon Tattoo', author: 'Stieg Larsson', isbn: '9780000000012', totalCopies: 2, genreId: mystery.id },
+      { title: 'Sapiens', author: 'Yuval Noah Harari', isbn: '9780000000013', totalCopies: 2, genreId: history.id },
+      { title: 'Guns, Germs, and Steel', author: 'Jared Diamond', isbn: '9780000000014', totalCopies: 2, genreId: history.id },
+      { title: 'The Silk Roads', author: 'Peter Frankopan', isbn: '9780000000015', totalCopies: 2, genreId: history.id },
+      { title: 'SPQR', author: 'Mary Beard', isbn: '9780000000016', totalCopies: 2, genreId: history.id }
+    ]
   });
 }
 
